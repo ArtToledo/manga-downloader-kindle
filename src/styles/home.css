@@ -1,0 +1,124 @@
+@font-face {
+  font-family: "mangatb";
+  src: url("../fonts/mangatb.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: 'mangatb';
+}
+
+body {
+  width: 800px;
+  height: 600px;
+}
+
+h1 {
+  font-size: 26px;
+  color: white;
+}
+
+.container {
+  width: 800px;
+  height: 600px;
+
+  background-image: url("../assets/background-hxh.jpeg");
+  background-color: #cccccc;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container .container-informations {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.container .container-informations .inputs {
+  width: 100%;
+  height: 600px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputs .actions {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 100px;
+}
+
+.inputs .actions label {
+  font-size: 12px;
+}
+
+.inputs .actions input {
+  border: 0px;
+  border-radius: 4px;
+  width: 350px;
+  height: 36px;
+  margin-top: 6px;
+
+  padding: 4px;
+  color: #666;
+}
+
+.inputs .actions button {
+  margin-top: 60px;
+  width: 220px;
+  height: 40px;
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  background-color: #309830;
+
+  align-self: center;
+}
+
+.container .container-informations .mangas {
+  width: 100%;
+  height: 600px;
+}
+
+.mangas img {
+  position: relative;
+  width: 160px;
+  height: 240px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.mangas .manga-superior-esquerda {
+  top: 30px;
+  left: 18px;
+}
+
+.mangas .manga-inferior-esquerda {
+  top: 50px;
+  left: 18px;
+}
+
+.mangas .manga-superior-direita {
+  top: 60px;
+  left: 36px;
+}
+
+.mangas .manga-inferior-direita {
+  top: 80px;
+  left: 36px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(0.96)
+}
