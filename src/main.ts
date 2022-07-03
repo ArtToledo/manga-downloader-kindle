@@ -1,4 +1,4 @@
-require('dotenv').config()
+/* require('dotenv').config()
 import { 
   perguntaLink, 
   pegaLinksDasImagensNoSite, 
@@ -17,3 +17,39 @@ const load = async () => {
 }
  
 load()
+ */
+
+const { app, BrowserWindow, ipcMain } = require('electron')
+const path = require('path')
+
+// variaveis para funcionamento do electron
+var win;
+
+function createWindow() {
+  win = new BrowserWindow({
+    width: 900,
+    height: 629,
+    title: 'Mangá Downloader',
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+
+  win.removeMenu();
+  win.loadFile(path.resolve(__dirname, 'pages', 'home.html'));
+}
+
+app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  };
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow()
+  };
+});
