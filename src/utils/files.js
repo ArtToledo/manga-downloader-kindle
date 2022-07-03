@@ -51,7 +51,10 @@ module.exports = {
       size: [960, 1481],
       compress: true,
     })
-    manga.pipe(createWriteStream(resolve(process.env.DESTINO_MANGAS, `${nomeManga}.pdf`)))
+    const nomeArquivo = `${nomeManga}.pdf`
+    caminhoArquivo = resolve(process.env.DESTINO_MANGAS, nomeArquivo)
+    
+    manga.pipe(createWriteStream(caminhoArquivo))
   
     for (const imagem of caminhoDasImagens) {
       const dimensoes = sizeOf(imagem)
@@ -65,5 +68,9 @@ module.exports = {
     }
   
     manga.end()
+    return {
+      nomeArquivo,
+      caminhoArquivo
+    }
   }
 }

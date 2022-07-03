@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 
 const { pegaLinksDasImagensNoSite } = require('./utils/web-scrapping')
+const { enviarEmail } = require('./utils/email')
 const {
   criarPastaDestino,
   baixarImagens,
@@ -52,5 +53,15 @@ const iniciaDownload = async (email, urlManga) => {
   
   criarPastaDestino()
   const caminhoDasImagensBaixadas = await baixarImagens(resposta.links)
-  criarMangaFormatoPDF(caminhoDasImagensBaixadas, resposta.nomeManga)
+  const {
+    nomeArquivo,
+    caminhoArquivo
+  } = criarMangaFormatoPDF(caminhoDasImagensBaixadas, resposta.nomeManga)
+  
+  await enviarEmail(
+    resposta.nomeManga,
+    email,
+    nomeArquivo,
+    caminhoArquivo
+  )
 }
