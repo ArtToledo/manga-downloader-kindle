@@ -21,7 +21,9 @@
           <label for="urlManga" style="margin-top: 30px;">Link do manga para download:</label>
           <input type="url" name="urlManga" id="urlManga" placeholder="Link do site mangalivre.net">
 
-          <button>Solicitar Download</button>
+          <button class="active">
+            <p id="activeText">Solicitar Download</p>
+          </button>
         </div>
       </div>
 
@@ -33,5 +35,32 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const buttonActive = document.querySelector('.active')
+    const textButton = document.getElementById('activeText')
+
+    buttonActive.addEventListener('click', () => {
+      if (textButton.textContent === 'Solicitar Download') {
+        const email = document.getElementById('email').value
+        const urlManga = document.getElementById('urlManga').value
+
+        if (email === '' || urlManga === '') {
+          alert('Preencha todos os campos para executar o programa.')
+        } else {
+          const { ipcRenderer } = require('electron')
+
+          textButton.innerHTML = 'Em andamento...'
+          buttonActive.disabled = true
+          ipcRenderer.send('activeSystem', {
+            email,
+            urlManga,
+          })
+        }
+      } else {
+        alert('O programa já está em execução.')
+      }
+    })
+  </script>
 </body>
 </html>
