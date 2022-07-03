@@ -1,26 +1,13 @@
-/* require('dotenv').config()
-import { 
-  perguntaLink, 
-  pegaLinksDasImagensNoSite, 
+require('dotenv').config()
+const { app, BrowserWindow, ipcMain } = require('electron')
+const path = require('path')
+
+const { pegaLinksDasImagensNoSite } = require('./utils/web-scrapping')
+const {
   criarPastaDestino,
   baixarImagens,
   criarMangaFormatoPDF
-} from './utils'
- 
-const load = async () => {
-  const link = await perguntaLink()
-  const resposta = await pegaLinksDasImagensNoSite(link)
-  
-  criarPastaDestino()
-  const caminhoDasImagensBaixadas = await baixarImagens(resposta.links)
-  criarMangaFormatoPDF(caminhoDasImagensBaixadas, resposta.nomeManga)
-}
- 
-load()
- */
-
-const { app, BrowserWindow, ipcMain } = require('electron')
-const path = require('path')
+} = require('./utils/files')
 
 // variaveis para funcionamento do electron
 var win;
@@ -55,6 +42,15 @@ app.on('activate', () => {
 })
 
 
-ipcMain.on('activeSystem', (event, arg) => {
+ipcMain.on('activeSystem', async (event, arg) => {
   const { email, urlManga } = arg;
+  await iniciaDownload(email, urlManga)
 })
+
+const iniciaDownload = async (email, urlManga) => {
+  const resposta = await pegaLinksDasImagensNoSite(urlManga)
+  
+  criarPastaDestino()
+  const caminhoDasImagensBaixadas = await baixarImagens(resposta.links)
+  criarMangaFormatoPDF(caminhoDasImagensBaixadas, resposta.nomeManga)
+}
