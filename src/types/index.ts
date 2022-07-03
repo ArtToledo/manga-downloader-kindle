@@ -1,1 +1,1 @@
-export * from './resposta-link-terminal'
+export * from './resposta-links-imagens-manga'
